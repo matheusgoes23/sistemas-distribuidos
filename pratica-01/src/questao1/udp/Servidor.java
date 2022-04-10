@@ -1,11 +1,10 @@
-package questao1.tcp;
+package questao1.udp;
 
 import questao1.Sentido;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class Servidor implements Runnable {
     private int id;
@@ -43,10 +42,6 @@ public class Servidor implements Runnable {
     public void run() {
         try {
 
-            ServerSocket serverSocket = new ServerSocket(this.getPorta());
-            Socket socket = serverSocket.accept();
-            DataOutputStream fluxoSaida = new DataOutputStream(socket.getOutputStream());
-
             if (this.getSentido().equals(Sentido.HORARIO)) {
                 Thread.sleep(this.getId() * 1000L);
             } else {
@@ -67,17 +62,16 @@ public class Servidor implements Runnable {
             }
 
             this.setMensagem(Dados.getMensagem(this.getId()));
+            byte[] mensagemEnvio = String.valueOf(Dados.getMensagem(this.getId()) + this.getId()).getBytes();
 
-            if (this.getMensagem() >= 0) {
-                System.out.println("Mensagem enviada pelo P" + this.getId() + ": [ " + this.getMensagem() + " + " + this.getId() + " ]");
-                fluxoSaida.writeInt(this.getMensagem() + this.getId());
-            }
+            DatagramSocket datagramSocket = new DatagramSocket();
+            DatagramPacket datagramPacket = new DatagramPacket(mensagemEnvio, mensagemEnvio.length, InetAddress.getByName("localhost"), this.getPorta());
 
-            fluxoSaida.close();
-            socket.close();
-            serverSocket.close();
+            System.out.println("Mensagem enviada pelo P" + this.getId() + ": [ " + this.getMensagem() + " + " + this.getId() + " ]");
+            datagramSocket.send(datagramPacket);
 
-        } catch (IOException | InterruptedException e) {
+            datagramSocket.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

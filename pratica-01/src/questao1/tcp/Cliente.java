@@ -34,7 +34,6 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             Thread.sleep(1000);
-            System.out.println("Iniciado Cliente P" + this.getId());
             Socket socket = new Socket("localhost", this.getAntecessor().getPorta());
 
             DataInputStream fluxoEntrada = new DataInputStream(socket.getInputStream());
