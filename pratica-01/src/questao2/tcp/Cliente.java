@@ -47,7 +47,11 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             if (this.getCondicao()) {
-                Thread.sleep(1000L * this.getId());
+                if (this.getMensagem() != null) {
+                    Thread.sleep(1000);
+                } else {
+                    Thread.sleep(1000L * this.getId());
+                }
             } else {
                 Thread.sleep(4000L / this.getId());
             }
