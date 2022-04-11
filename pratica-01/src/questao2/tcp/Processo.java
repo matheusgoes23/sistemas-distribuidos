@@ -53,6 +53,10 @@ public class Processo implements Runnable {
         this.getProcessos().remove(this.getId());
     }
 
+    public int getPortaCentral() {
+        return portaCentral;
+    }
+
     public void conexoes(Processo P2, Processo P3, Processo P4) {
         this.processos.put(P2.getId(), P2);
         this.processos.put(P3.getId(), P3);
@@ -62,26 +66,26 @@ public class Processo implements Runnable {
     @Override
     public void run() {
 
-        if (this.portaCentral == this.getPorta() && this.getOperacao().equals(Operacao.UNICAST)) {
+        if (this.getPortaCentral() == this.getPorta() && this.getOperacao().equals(Operacao.UNICAST)) {
             Servidor servidor = new Servidor(this.getId(), this.getPorta());
             Thread threadServidor = new Thread(servidor);
             threadServidor.start();
-        } else if (this.portaCentral == this.getPorta() && this.getOperacao().equals(Operacao.BROADCAST)) {
+        } else if (this.getPortaCentral() == this.getPorta() && this.getOperacao().equals(Operacao.BROADCAST)) {
             Servidor servidor = new Servidor(this.getId(), this.getPorta(), this.getProcessos().size());
             Thread threadServidor = new Thread(servidor);
             threadServidor.start();
         } else if (this.getProcesso() != null && this.getOperacao().equals(Operacao.UNICAST)) {
             boolean condicao = this.getId() < this.getProcesso().getId();
 
-            Cliente cliente = new Cliente(this.getId(), this.portaCentral, this.getMensagem(), condicao);
+            Cliente cliente = new Cliente(this.getId(), this.getPortaCentral(), this.getMensagem(), condicao);
             Thread threadCliente = new Thread(cliente);
             threadCliente.start();
 
-            Cliente clienteRecebimento = new Cliente(this.getProcesso().getId(), this.portaCentral, condicao);
+            Cliente clienteRecebimento = new Cliente(this.getProcesso().getId(), this.getPortaCentral(), condicao);
             Thread threadClienteRecebimento = new Thread(clienteRecebimento);
             threadClienteRecebimento.start();
         } else if (this.getOperacao() != null && this.getOperacao().equals(Operacao.BROADCAST)) {
-            Cliente cliente = new Cliente(this.getId(), this.portaCentral, this.getMensagem(), true);
+            Cliente cliente = new Cliente(this.getId(), this.getPortaCentral(), this.getMensagem(), true);
             Thread threadCliente = new Thread(cliente);
             threadCliente.start();
         }

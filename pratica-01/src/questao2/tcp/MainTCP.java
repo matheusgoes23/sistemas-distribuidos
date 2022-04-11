@@ -38,7 +38,7 @@ public class MainTCP {
                     if (operacao.equals(Operacao.UNICAST)) {
                         P3.enviarMensagem(escolhaRecebimento(P2, P4), receberMensagem());
                     } else {
-                        P2.setMensagem(receberMensagem());
+                        P3.setMensagem(receberMensagem());
                     }
                     condicao = false;
                     break;
@@ -46,7 +46,7 @@ public class MainTCP {
                     if (operacao.equals(Operacao.UNICAST)) {
                         P4.enviarMensagem(escolhaRecebimento(P2, P3), receberMensagem());
                     } else {
-                        P2.setMensagem(receberMensagem());
+                        P4.setMensagem(receberMensagem());
                     }
                     condicao = false;
                     break;
@@ -71,7 +71,7 @@ public class MainTCP {
         int P1 = primeiro.getId();
         int P2 = segundo.getId();
 
-        System.out.println("Escolha qual processo deve enviar a mensagem:" + "\nP" + primeiro.getId() + ": Digite " + primeiro.getId() + "\nP" + segundo.getId() + ": Digite " + segundo.getId());
+        System.out.println("Escolha qual processo deve receber a mensagem:" + "\nP" + primeiro.getId() + ": Digite " + primeiro.getId() + "\nP" + segundo.getId() + ": Digite " + segundo.getId());
 
         int processoRecebimento = in.nextInt();
 

@@ -7,7 +7,7 @@ public class Questao1 {
     public static void main(String[] args) {
 
         //  Cliente/Servidor com TCP em sentido horário
-        MainTCP.start(Sentido.HORARIO);
+//        MainTCP.start(Sentido.HORARIO);
 
         //  Cliente/Servidor com TCP em sentido anti-horario
 //        MainTCP.start(Sentido.ANTI_HORARIO);
@@ -16,6 +16,6 @@ public class Questao1 {
 //        MainUDP.start(Sentido.HORARIO);
 
         //  Cliente/Servidor com UDP em sentido anti-horario
-//        MainUDP.start(Sentido.ANTI_HORARIO);
+        MainUDP.start(Sentido.ANTI_HORARIO);
     }
 }
