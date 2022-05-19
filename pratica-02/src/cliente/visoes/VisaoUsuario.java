@@ -17,7 +17,7 @@ public class VisaoUsuario {
 
         while (true) {
             System.out.println(" --------------------------------------------");
-            System.out.println("|  [0] - SAIR DESSA TELA                     |");
+            System.out.println("|  [0] - SAIR DESSA CONTA                    |");
             System.out.println("|  [1] - ALTERAR SUA CONTA                   |");
             System.out.println("|  [2] - LISTAR SUA CONTA                    |");
             System.out.println("|  [3] - REMOVER SUA CONTA                   |");
@@ -32,6 +32,8 @@ public class VisaoUsuario {
 
             switch (teclado.nextInt()) {
                 case 0:
+                    teclado = new Scanner(System.in);
+                    System.out.println();
                     return;
                 case 1:
                     teclado = new Scanner(System.in);

@@ -22,18 +22,20 @@ public class Cliente {
 
             DigitalBank stubCliente = (DigitalBank) registro.lookup("DigitalBank");
 
-            token = fazerLogin(stubCliente);
+            while (true) {
+                token = fazerLogin(stubCliente);
 
-            int tipoConta = stubCliente.obterTipoConta(token);
+                int tipoConta = stubCliente.obterTipoConta(token);
 
-            if (tipoConta == 0) {
-                VisaoFuncionario visaoFuncionario = new VisaoFuncionario();
-                visaoFuncionario.iniciar(stubCliente, token);
-            } else if (tipoConta == 1) {
-                VisaoUsuario visaoUsuario = new VisaoUsuario();
-                visaoUsuario.iniciar(stubCliente, token);
+                if (tipoConta == 0) {
+                    VisaoFuncionario visaoFuncionario = new VisaoFuncionario();
+                    visaoFuncionario.iniciar(stubCliente, token);
+                } else if (tipoConta == 1) {
+                    VisaoUsuario visaoUsuario = new VisaoUsuario();
+                    visaoUsuario.iniciar(stubCliente, token);
+                }
+                token = null;
             }
-
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
