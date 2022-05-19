@@ -17,6 +17,8 @@ public interface DigitalBank extends Remote {
 
     Conta buscarConta(String numero, String token) throws RemoteException;
 
+    Conta buscarMinhaConta(String token) throws RemoteException;
+
     List<Conta> listarContas(String token) throws RemoteException;
 
     int removerConta(String numero, String token) throws RemoteException;

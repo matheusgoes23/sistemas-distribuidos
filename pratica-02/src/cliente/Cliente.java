@@ -1,8 +1,8 @@
 package cliente;
 
 import cliente.visoes.VisaoFuncionario;
+import cliente.visoes.VisaoUsuario;
 import servidor.DigitalBank;
-import utils.TipoConta;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -30,7 +30,8 @@ public class Cliente {
                 VisaoFuncionario visaoFuncionario = new VisaoFuncionario();
                 visaoFuncionario.iniciar(stubCliente, token);
             } else if (tipoConta == 1) {
-//                visaoUsuario(stubCliente);
+                VisaoUsuario visaoUsuario = new VisaoUsuario();
+                visaoUsuario.iniciar(stubCliente, token);
             }
 
         } catch (Exception e) {
