@@ -139,7 +139,7 @@ public class VisaoUsuario {
         if (resposta.equals("s") || resposta.equals("S")) {
             Conta conta = stubCliente.buscarMinhaConta(token);
 
-            if (stubCliente.removerConta(conta.getNumero(), token) == 1) {
+            if (stubCliente.removerConta(conta.getNumero()) == 1) {
                 System.out.println("Conta Removida!");
             } else {
                 System.out.println("Conta não encontrada!");

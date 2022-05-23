@@ -59,14 +59,18 @@ public class DigitalBankImpl implements DigitalBank {
                 List<Conta> contas = new ArrayList<>();
                 if (conta.getNumero().equals(numero)) {
                     for (Conta contaBusca : Dados.obterContas()) {
-                        if (contaBusca.getNumero().equals(Token.obterNumeroConta(token))) contas.add(contaBusca);
+                        if (contaBusca.getNumero().equals(Token.obterNumeroConta(token))) {
+                            contas.add(contaBusca);
+                        } else if (contaBusca.getNumero().equals(numero)) {
+                            contas.add(contaBusca);
+                        }
                     }
                 } else {
                     contas = listarContas(token);
                 }
 
                 for (int i = 0; i < contas.size(); i++) {
-                    if (contas.get(i).getNumero().equals(conta.getNumero())) {
+                    if (contas.get(i).getNumero().equals(numero)) {
                         contas.get(i).setLogin(conta.getLogin());
                         contas.get(i).setSenha(conta.getSenha());
                         contas.get(i).setCpf(conta.getCpf());
@@ -86,7 +90,7 @@ public class DigitalBankImpl implements DigitalBank {
     }
 
     @Override
-    public Conta buscarConta(String numero, String token) {
+    public Conta buscarConta(String numero) {
         for (Conta conta : Dados.obterContas()) {
             if (conta.getNumero().equals(numero)) return conta;
         }
@@ -112,8 +116,8 @@ public class DigitalBankImpl implements DigitalBank {
     }
 
     @Override
-    public int removerConta(String numero, String token) {
-        Conta conta = buscarConta(numero, token);
+    public int removerConta(String numero) {
+        Conta conta = buscarConta(numero);
 
         if (conta != null) if (conta.getTipoConta().equals(TipoConta.USUARIO)) {
             List<Conta> contas = Dados.obterContas();
@@ -161,14 +165,14 @@ public class DigitalBankImpl implements DigitalBank {
 
     @Override
     public double saldo(String token) {
-        return buscarConta(Token.obterNumeroConta(token), token).getValor();
+        return buscarConta(Token.obterNumeroConta(token)).getValor();
     }
 
     @Override
     public int transferir(String numeroReceber, double valor, String token) {
         List<Conta> contas = Dados.obterContas();
-        Conta contaEnviar = buscarConta(Token.obterNumeroConta(token), token);
-        Conta contaReceber = buscarConta(numeroReceber, token);
+        Conta contaEnviar = buscarConta(Token.obterNumeroConta(token));
+        Conta contaReceber = buscarConta(numeroReceber);
 
         if (contaEnviar == null || contaReceber == null) return 0;
 
@@ -198,7 +202,7 @@ public class DigitalBankImpl implements DigitalBank {
     public String investirPoupanca(String token) throws RemoteException {
         Conta conta;
         if (Objects.equals(Token.obterTipoConta(token), TipoConta.FUNCIONARIO)) {
-            conta = buscarConta(Token.obterNumeroConta(token), token);
+            conta = buscarConta(Token.obterNumeroConta(token));
         } else if (Objects.equals(Token.obterTipoConta(token), TipoConta.USUARIO)) {
             conta = buscarMinhaConta(token);
         } else {
@@ -222,7 +226,7 @@ public class DigitalBankImpl implements DigitalBank {
     public String investirRendaFixa(String token) throws RemoteException {
         Conta conta;
         if (Objects.equals(Token.obterTipoConta(token), TipoConta.FUNCIONARIO)) {
-            conta = buscarConta(Token.obterNumeroConta(token), token);
+            conta = buscarConta(Token.obterNumeroConta(token));
         } else if (Objects.equals(Token.obterTipoConta(token), TipoConta.USUARIO)) {
             conta = buscarMinhaConta(token);
         } else {

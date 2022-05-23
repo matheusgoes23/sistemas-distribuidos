@@ -129,7 +129,7 @@ public class VisaoFuncionario {
         System.out.print("Digite o número da conta que deseja alterar: ");
         String numeroConta = teclado.nextLine();
 
-        Conta conta = stubCliente.buscarConta(numeroConta, token);
+        Conta conta = stubCliente.buscarConta(numeroConta);
         System.out.print("Digite o novo cpf: ");
         conta.setCpf(teclado.nextLine());
         System.out.print("Digite o novo nome: ");
@@ -156,7 +156,7 @@ public class VisaoFuncionario {
         System.out.print("Digite o número da conta que deseja buscar: ");
         String numeroConta = teclado.nextLine();
 
-        Conta conta = stubCliente.buscarConta(numeroConta, token);
+        Conta conta = stubCliente.buscarConta(numeroConta);
 
         if (conta != null) {
             System.out.println("Login: " + conta.getLogin());
@@ -199,7 +199,7 @@ public class VisaoFuncionario {
         System.out.print("Digite o número da conta que deseja remover: ");
         String numeroConta = teclado.nextLine();
 
-        if (stubCliente.removerConta(numeroConta, token) == 1) {
+        if (stubCliente.removerConta(numeroConta) == 1) {
             System.out.println("Conta Removida!");
         } else {
             System.out.println("Conta não encontrada!");

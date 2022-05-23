@@ -15,13 +15,13 @@ public interface DigitalBank extends Remote {
 
     int alterarConta(String numero, Conta conta, String token) throws RemoteException;
 
-    Conta buscarConta(String numero, String token) throws RemoteException;
+    Conta buscarConta(String numero) throws RemoteException;
 
     Conta buscarMinhaConta(String token) throws RemoteException;
 
     List<Conta> listarContas(String token) throws RemoteException;
 
-    int removerConta(String numero, String token) throws RemoteException;
+    int removerConta(String numero) throws RemoteException;
 
     double sacar(double valor, String token) throws RemoteException;
 
