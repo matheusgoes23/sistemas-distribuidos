@@ -33,13 +33,8 @@ public class Processo implements Runnable {
 
     @Override
     public void run() {
-//        Servidor servidor;
-//        servidor = new Servidor(this.getId(), this.getPorta());
 
         Cliente cliente = new Cliente(this.getId(), this.getPorta(), coordenadorPorta);
-
-//        Thread threadServidor = new Thread(servidor);
-//        threadServidor.start();
 
         Thread threadCliente = new Thread(cliente);
         threadCliente.start();

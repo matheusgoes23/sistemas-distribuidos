@@ -2,10 +2,7 @@ package questao1.processo;
 
 import questao1.utils.Recurso;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -49,7 +46,7 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             Thread.sleep(this.getId() * 100L);
-            System.out.println("Iniciou cliente do Processo " + this.getId());
+            System.out.println("Iniciou processo " + this.getId());
             Socket socket = new Socket("localhost", coordenadorPorta);
             DataOutputStream fluxoSaida = new DataOutputStream(socket.getOutputStream());
 
@@ -58,7 +55,6 @@ public class Cliente implements Runnable {
 
             ServerSocket serverSocket = new ServerSocket(this.getPorta());
             Socket socketRecebimento = serverSocket.accept();
-            System.out.println("Processo " + this.getId() + " esperando permissão");
             DataInputStream fluxoEntrada = new DataInputStream(socketRecebimento.getInputStream());
 
             this.setMensagem(fluxoEntrada.readUTF());
@@ -66,6 +62,8 @@ public class Cliente implements Runnable {
             System.out.println("Processo " + this.getId() + " recebeu " + this.getMensagem());
 
             Recurso.tornarIndisponivel();
+            escreverEmArquivo();
+            System.out.println("Processo " + this.getId() + " escreveu");
             Thread.sleep(3000L);
             Recurso.tornarDisponivel();
 
@@ -77,5 +75,19 @@ public class Cliente implements Runnable {
         }
 
 
+    }
+
+    private void escreverEmArquivo() throws IOException {
+        File arquivo = new File("./recurso.txt");
+        if (!arquivo.exists())
+            arquivo.createNewFile();
+        FileWriter fw = new FileWriter(arquivo, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        bw.write("Processo " + this.getId() + " escreveu aqui");
+        bw.newLine();
+
+        bw.close();
+        fw.close();
     }
 }

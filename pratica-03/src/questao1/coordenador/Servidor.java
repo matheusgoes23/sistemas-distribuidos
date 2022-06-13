@@ -27,14 +27,14 @@ public class Servidor implements Runnable {
             threadEnvio.start();
 
             ServerSocket serverSocket = new ServerSocket(this.getPorta());
-            System.out.println("Servidor do coordenador iniciou");
+            System.out.println("Coordenador iniciou");
 
             while (true) {
                 Socket socket = serverSocket.accept();
                 DataInputStream fluxoEntrada = new DataInputStream(socket.getInputStream());
 
                 int processoQueRequisitou = fluxoEntrada.readInt();
-                System.out.println("Coordenador recebeu do Processo " + processoQueRequisitou);
+                System.out.println("Coordenador recebeu pedido do processo " + processoQueRequisitou);
                 Dados.addFila(Dados.obterProcesso(processoQueRequisitou));
 
                 fluxoEntrada.close();

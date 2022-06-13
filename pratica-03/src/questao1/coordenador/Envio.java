@@ -20,7 +20,7 @@ public class Envio implements Runnable {
 
                     Socket socketEnvio = new Socket("localhost", processoComPermissao.getPorta());
                     DataOutputStream fluxoSaida = new DataOutputStream(socketEnvio.getOutputStream());
-                    System.out.println("Coordenador enviou para o Processo " + processoComPermissao.getId());
+                    System.out.println("Coordenador deu permissão para processo " + processoComPermissao.getId());
                     fluxoSaida.writeUTF("OK");
 
                     fluxoSaida.close();

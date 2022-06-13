@@ -24,16 +24,16 @@ public abstract class Dados {
         return null;
     }
 
-    public static boolean filaVazia(){
+    public static boolean filaVazia() {
         return fila.isEmpty();
     }
 
-    public static Processo addFila(Processo processo){
+    public static Processo addFila(Processo processo) {
         fila.add(processo);
         return fila.peek();
     }
 
-    public static Processo tirarFila(){
+    public static Processo tirarFila() {
         return fila.poll();
     }
 }
