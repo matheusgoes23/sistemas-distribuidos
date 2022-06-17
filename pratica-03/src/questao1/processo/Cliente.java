@@ -45,7 +45,7 @@ public class Cliente implements Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep(this.getId() * 100L);
+            Thread.sleep(this.getId() * 500L);
             System.out.println("Iniciou processo " + this.getId());
             Socket socket = new Socket("localhost", coordenadorPorta);
             DataOutputStream fluxoSaida = new DataOutputStream(socket.getOutputStream());
